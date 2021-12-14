@@ -30,6 +30,7 @@ import lime.app.Application;
 import flixel.math.FlxMath;
 import flixel.text.FlxText;
 import flixel.input.FlxKeyManager;
+import ui.FlxVirtualPad;
 
 using StringTools;
 
@@ -37,6 +38,8 @@ class ResultsScreen extends FlxSubState
 {
 	public var background:FlxSprite;
 	public var text:FlxText;
+
+	var _pad:FlxVirtualPad;
 
 	public var anotherBackground:FlxSprite;
 	public var graph:HitGraph;
@@ -181,6 +184,10 @@ class ResultsScreen extends FlxSubState
 
 		cameras = [FlxG.cameras.list[FlxG.cameras.list.length - 1]];
 
+		_pad = new FlxVirtualPad(NONE, A);
+		_pad.alpha = 0.75;
+		add(_pad);
+
 		super.create();
 	}
 
@@ -194,7 +201,7 @@ class ResultsScreen extends FlxSubState
 
 		// keybinds
 
-		if (PlayerSettings.player1.controls.ACCEPT)
+		if (PlayerSettings.player1.controls.ACCEPT || _pad.buttonA.justPressed)
 		{
 			if (music != null)
 				music.fadeOut(0.3);
